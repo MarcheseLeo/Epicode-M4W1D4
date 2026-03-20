@@ -227,5 +227,87 @@ ul {
 }
 
 .mainPage img {
-  width: 200px;
+  /* width: 200px; */
+}
+
+
+/*----Card----*/
+.spotify-card {
+  background-color: #181818;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+.spotify-card:hover {
+  background-color: #282828;
+}
+
+.album-img {
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.artist-img {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+}
+
+.artist-info {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.artist-name {
+  transition: color 0.2s ease;
+}
+
+.artist-info:hover .artist-name {
+  color: #ffffff; 
+  text-decoration: underline;
+}
+
+
+.duration {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.play-btn {
+  position: absolute;
+  bottom: 8px; 
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1ed760;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+}
+
+.play-btn i {
+  font-size: 1.8rem;
+  color: #000;
+  margin-left: 4px; 
+}
+
+
+.spotify-card:hover .play-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.play-btn:hover {
+  background-color: #1fdf64;
+  transform: scale(1.05) !important;
 }
