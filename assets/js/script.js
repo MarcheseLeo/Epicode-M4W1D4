@@ -32,32 +32,90 @@ const createSongCard = (song, author) => {
 
     const card = document.createElement('div')
     card.classList.add('card', "spotify-card", 'h-100')
+    card.setAttribute('songID', song.id)
 
-    card.innerHTML = `
-        <div class="position-relative p-3 pb-0">
-            <img src="${song.album.cover}" class="card-img-top album-img shadow"
-                alt="Copertina Album">
-            <button class="btn play-btn shadow-lg" aria-label="Play">
-                <i class="fa-solid fa-play"></i>
-            </button>
-        </div>
 
-        <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-truncate text-white mb-1">${song.title}</h5>
+    const cardTop = document.createElement('div')
+    cardTop.classList.add('position-relative', 'p-3', 'pb-0')
+    card.appendChild(cardTop)
 
-            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 text-secondary">
-                <div class="d-flex align-items-center artist-info overflow-hidden">
-                    <img src="${song.artist.picture}"
-                        // class="rounded-circle artist-img me-2 shadow-sm" alt="${song.artist.name}">
-                    <span class="text-truncate artist-name">${song.artist.name}</span>
-                </div>
-                <small class="duration ms-2 flex-shrink-0">${parseTime(song.duration)}</small>
-            </div>
-    `
+    const img = document.createElement('img')
+    img.src = song.album.cover
+    img.classList.add('card-img-top', 'album-img', 'shadow')
+    img.alt = "Copertina Album"
+    cardTop.appendChild(img)
+
+    const playBtn = document.createElement('button')
+    playBtn.classList.add('btn', 'play-btn', 'shadow-lg')
+    playBtn.ariaLabel = "Play"
+    cardTop.appendChild(playBtn)
+
+    const playBtnIcon = document.createElement('i')
+    playBtnIcon.classList.add('fa-solid', 'fa-play')
+    playBtn.appendChild(playBtnIcon)
+
+
+    const cardBottom = document.createElement('div')
+    cardBottom.classList.add('card-body', 'd-flex', 'flex-column')
+    card.appendChild(cardBottom)
+
+    const title = document.createElement('h5')
+    title.classList.add('card-title', 'text-truncate', 'text-white', 'mb-1')
+    title.innerHTML = song.title
+    cardBottom.appendChild(title)
+
+
+    const innerBottom = document.createElement('div')
+    innerBottom.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mt-auto', 'pt-2', 'text-secondary')
+    cardBottom.appendChild(innerBottom)
+
+    const innerBottomLeft = document.createElement('div')
+    innerBottomLeft.classList.add('d-flex', 'align-items-center', 'artist-info', 'overflow-hidden')
+    innerBottom.appendChild(innerBottomLeft)
+
+    const profilePicture = document.createElement('img')
+    profilePicture.src = song.artist.picture
+    profilePicture.classList.add('rounded-circle', 'artist-img', 'me-2', 'shadow-sm')
+    profilePicture.alt = song.artist.name
+    innerBottomLeft.appendChild(profilePicture)
+
+    const artist = document.createElement('span')
+    artist.classList.add('text-truncate', 'artist-name')
+    artist.innerHTML = song.artist.name
+    innerBottomLeft.appendChild(artist)
+
+    const duration = document.createElement('small')
+    duration.classList.add('duration', 'ms-2', 'flex-shrink-0')
+    duration.innerHTML = parseTime(song.duration)
+    innerBottom.appendChild(duration)
+
+    const addBtn = document.createElement('button')
+    addBtn.classList.add('btn', 'btn-link', 'p-0', 'ms-2', 'add-to-library-btn')
+    addBtn.ariaLabel = "Aggiungi alla libreria"
+    addBtn.title = "Salva nella tua libreria"
+    innerBottom.appendChild(addBtn)
+
+    const addBtnIcon = document.createElement('i')
+    addBtnIcon.classList.add('fa-solid', 'fa-plus')
+    addBtn.appendChild(addBtnIcon)
 
     col.appendChild(card)
     row.appendChild(col)
+
+    addBtnIcon.addEventListener('click',()=>{
+        if(!saved.includes(song)){
+            addBtnIcon.classList.remove('fa-plus')
+            addBtnIcon.classList.add('fa-check')
+            saved.push(song)
+        }else{
+            saved.splice(saved.indexOf(song), 1)
+            addBtnIcon.classList.add('fa-plus')
+            addBtnIcon.classList.remove('fa-check')
+        }
+        console.log(saved)
+    })
 }
+const saved = []
 
 //Function to convert time in seconds in min and sec
 const parseTime = (duration) => {
@@ -126,3 +184,6 @@ const showResults = (search) => {
             })
         })
 }
+
+const libraryBtn = document.querySelector('library-btn')
+libraryBtn.addEventListener('click')

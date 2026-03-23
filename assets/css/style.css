@@ -311,3 +311,26 @@ ul {
   background-color: #1fdf64;
   transform: scale(1.05) !important;
 }
+
+
+.add-to-library-btn {
+  color: #b3b3b3;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+}
+
+.add-to-library-btn i {
+  font-size: 1.2rem;
+}
+
+
+.add-to-library-btn:hover {
+  color: #ffffff; 
+  transform: scale(1.1);
+}
+
+.add-to-library-btn.added {
+  color: #1ed760; /
+}
